@@ -37,6 +37,15 @@
     @apply font-sans font-medium text-base text-primary100 overflow-x-hidden bg-repeat-y bg-cover bg-fixed;
     background-image: url("data:image/svg+xml,%3Csvg width='1440' height='1803' viewBox='0 0 1440 1803' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.16' filter='url(%23filter0_f_0_1)'%3E%3Ccircle cx='1305' cy='42' r='376' fill='%232A40FF'/%3E%3C/g%3E%3Cg opacity='0.16' filter='url(%23filter1_f_0_1)'%3E%3Ccircle cx='1230' cy='522' r='376' fill='%2334CC3B'/%3E%3C/g%3E%3Cg opacity='0.16' filter='url(%23filter2_f_0_1)'%3E%3Ccircle cx='363' cy='983' r='376' fill='%2334CC3B'/%3E%3C/g%3E%3Cg opacity='0.15' filter='url(%23filter3_f_0_1)'%3E%3Ccircle cx='93' cy='776' r='376' fill='%232A40FF'/%3E%3C/g%3E%3Cdefs%3E%3Cfilter id='filter0_f_0_1' x='485' y='-778' width='1640' height='1640' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/%3E%3CfeGaussianBlur stdDeviation='222' result='effect1_foregroundBlur_0_1'/%3E%3C/filter%3E%3Cfilter id='filter1_f_0_1' x='410' y='-298' width='1640' height='1640' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/%3E%3CfeGaussianBlur stdDeviation='222' result='effect1_foregroundBlur_0_1'/%3E%3C/filter%3E%3Cfilter id='filter2_f_0_1' x='-457' y='163' width='1640' height='1640' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/%3E%3CfeGaussianBlur stdDeviation='222' result='effect1_foregroundBlur_0_1'/%3E%3C/filter%3E%3Cfilter id='filter3_f_0_1' x='-727' y='-44' width='1640' height='1640' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeFlood flood-opacity='0' result='BackgroundImageFix'/%3E%3CfeBlend mode='normal' in='SourceGraphic' in2='BackgroundImageFix' result='shape'/%3E%3CfeGaussianBlur stdDeviation='222' result='effect1_foregroundBlur_0_1'/%3E%3C/filter%3E%3C/defs%3E%3C/svg%3E%0A");
   }
+  body.admin-bar {
+    @apply md:pt-[32px];
+  }
+  body.has-kinola-mobilemenu-open {
+    @apply max-lg:overflow-hidden;
+  }
+  html #wpadminbar.mobile {
+    @apply !fixed inset-x-0 top-0;
+  }
   h1, h2 {
     @apply font-heading;
   }
@@ -69,47 +78,80 @@
 /* header */
 
 .kinola-header {
-  @apply w-full max-w-1xl mx-auto px-6 py-6;
+  @apply w-full max-w-1xl mx-auto px-6 py-6 z-10 max-lg:fixed max-lg:inset-x-0 max-lg:top-0 max-lg:bg-white;
+}
+.admin-bar .kinola-header {
+  @apply max-lg:top-[46px];
 }
 .kinola-nav {
-  @apply flex flex-row items-center gap-16;
+  @apply relative flex flex-row items-center max-lg:justify-between gap-16;
 }
 
 /* logo */
 
 .kinola-logo {
-  @apply font-heading font-semibold text-xl tracking-wide;
+  @apply inline-block font-heading font-semibold text-xl tracking-wide;
 }
-.kinola-logo-link {
-  @apply inline-block max-w-36 max-h-20;
+.kinola-mainmenu-wrap .kinola-logo {
+  @apply lg:hidden;
 }
 .kinola-logo-photo {
-  @apply size-full object-contain;
+  @apply size-full max-w-28 lg:max-w-36 max-h-20 object-contain;
 }
 
+/* main menu + mobile menu */
 
-
-
-/* main menu */
-
+.kinola-mainmenu-wrap {
+  @apply max-lg:fixed max-lg:inset-0 max-lg:bg-white max-lg:z-20 max-lg:px-6 max-lg:py-6 max-lg:opacity-0 max-lg:pointer-events-none max-lg:transition-all max-lg:duration-300 max-lg:ease-in-out;
+}
+.admin-bar .kinola-mainmenu-wrap {
+  @apply max-lg:top-[46px];
+}
+.has-kinola-mobilemenu-open .kinola-mainmenu-wrap {
+  @apply max-lg:opacity-100 max-lg:pointer-events-auto;
+}
 .kinola-mainmenu {
-  @apply flex gap-x-10;
+  @apply max-lg:py-12 max-lg:max-h-full max-lg:overflow-y-auto;
 }
-.kinola-mainmenu-item {}
-.kinola-mainmenu-link {
+.kinola-mainmenu ul {
+  @apply flex flex-col gap-y-10 lg:flex-row gap-x-10 max-lg:text-center max-lg:text-xl max-lg:font-heading max-lg:font-bold max-lg:uppercase;
+}
+.kinola-mainmenu ul a {
   @apply hover:text-accentI100 transition;
 }
-.kinola-mainmenu-item-active .kinola-mainmenu-link {
-  @apply relative after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:size-6 after:mt-2 after:bg-no-repeat;
+.kinola-mainmenu a,
+.kinola-mainmenu a {
+  @apply relative lg:after:absolute lg:after:top-full lg:after:left-1/2 lg:after:-translate-x-1/2 lg:after:size-6 lg:after:mt-2 lg:after:bg-no-repeat;
 }
-.kinola-mainmenu-item-active .kinola-mainmenu-link::after {
+.kinola-mainmenu .current_page_item a {
+  @apply max-lg:text-accentI100;
+}
+.kinola-mainmenu .current_page_item a::after {
   background-image: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.5 19V5' stroke='%235F0CE7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M5.5 12L12.5 5L19.5 12' stroke='%235F0CE7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+}
+
+/* mobile menu toggle */
+
+.kinola-mobilemenu-open {
+  @apply lg:hidden -mr-0.5 cursor-pointer size-6 p-0.5 flex flex-col gap-y-1.5;
+}
+.kinola-mobilemenu-close {
+  @apply lg:hidden -mr-0.5 cursor-pointer size-6 p-0.5 absolute right-6 top-6;
+}
+.kinola-mobilemenu-close .kinola-mobilemenu-stripe {
+  @apply first:rotate-45 last:-rotate-45 last:-mt-0.5 origin-center;
+}
+.kinola-mobilemenu-stripe {
+  @apply block w-full border border-black rounded;
 }
 
 /* content */
 
 .kinola-content {
   @apply w-full max-w-1xl mx-auto px-6 py-6;
+}
+.kinola-content {
+  @apply max-lg:mt-[76px];
 }
 
 /* footer */
@@ -169,6 +211,9 @@
 .kinola-item-photo-placeholder,
 .kinola-film-photo-placeholder {
   @apply absolute inset-0 bg-gradient-to-br from-accentII100 to-accentIII100 opacity-10 -z-10;
+}
+.kinola-film-photo-placeholder {
+  @apply max-lg:hidden;
 }
 
 /* events, films - info */
@@ -232,13 +277,16 @@
 /* film - poster */
 
 .kinola-film-poster {
-  @apply h-98 max-lg:hidden relative overflow-hidden;
+  @apply max-lg:hidden relative overflow-hidden;
 }
 .kinola-film-poster-mobile {
-  @apply h-40 sm:h-80 lg:hidden relative;
+  @apply lg:hidden relative;
 }
 .kinola-film-poster-photo {
-  @apply w-full h-full object-cover object-center;
+  @apply w-full h-98 object-cover object-center;
+}
+.kinola-film-poster-mobile .kinola-film-poster-photo {
+  @apply h-40 sm:h-80;
 }
 
 /* film - screenings  */
@@ -304,9 +352,9 @@
 /* film - trailer */
 
 .kinola-film-trailer-wrap {
-  @apply aspect-video overflow-hidden;
+  @apply aspect-video !w-full overflow-hidden;
 }
-.kinola-film-trailer iframe {
+.kinola-film-trailer-wrap iframe {
   @apply w-full h-auto max-w-full aspect-video;
 }
 
